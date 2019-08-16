@@ -6,4 +6,4 @@
 <body>
 <?php include('headere.php'); ?>
 <?php include('sidebar.php'); ?>
-<?php include('info.php'); ?>
+<?php // include('info.php'); ?>
