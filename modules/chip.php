@@ -1,7 +1,7 @@
 <?php 
 
-    include_once($_SERVER["DOCUMENT_ROOT"] . '/ps/data/data_Chip.php');
-	include_once($_SERVER["DOCUMENT_ROOT"] . '/ps/business/businessGps/business_Chip.php');
+    include_once($_SERVER["DOCUMENT_ROOT"] . '/gps/data/data_Chip.php');
+	include_once($_SERVER["DOCUMENT_ROOT"] . '/gps/business/businessGps/business_Chip.php');
     
     
 
@@ -37,8 +37,8 @@
 			
 		switch ($get_opcion) {
 			
-			case 'eventopPage':
-					view_mostrarPaginaEventos();
+			case 'reporte':
+					view_reporte();
 				break;
 			case 'index':
 					view_Index();
@@ -66,7 +66,7 @@
 		switch ($get_opcion) {
 
 			case 'J9Y0B7rh86':
-					fnc_Busqueda($sex);
+					fnc_listarChips();
 				break;
 			case 'xZ6rQTOHxk':
 					fnc_Agregar();
@@ -80,8 +80,8 @@
 			case 'Q6SwcynHWV':
 					fnc_VerificarSesionRuc($sex);
 				break;
-			case 'CambioEstadoEvento':
-					fnc_CambiarEstadoEvento();
+			case 'Rd5f84FT7D':
+					fnc_reporteCantidadChipsPorOperador();
 				break;
 			default:
 				header('Location: ../errors/404.php?sesion='.$sex);  
@@ -109,30 +109,24 @@
 	function view_Index()
 	{
 		@session_start();
-		$menu_activo = "mantenimiento_evento_index";
+		$menu_activo = "listarChip";
 		
-		// $businessControlAsistencia = new business_ControlAsistencia();
-		// $dtConsultarFechaHora = $businessControlAsistencia -> fncBusinessObtenerFechaHora();
-		// $Fecha = $dtConsultarFechaHora[0]["Fecha"];
-		// $business_Evento = new business_Evento();
-		// $dtListarEventos = $business_Evento -> fncBusinessListarEventos();
-        // $dtListarEventos = utf8_converter($dtListarEventos);
+
         
 
 
 
 		include('../views/includes/header.php');
-		include('../views/mod_evento/index.php');
+		include('../views/mod_chip/index.php');
 		include('../views/includes/footer.php');
 	}
-	function view_ListarEventoDetalle()
+	function view_reporte()
 	{
 		@session_start();
-        $menu_activo = "mantenimiento_listar_eventos_detalle";
-		$business_Evento = new business_Evento();
-		$dtListarEventos = $business_Evento -> fncBusinessListarEventosDetalle();
+		$menu_activo = "reporteChip";
+		
 		include('../views/includes/header.php');
-		include('../views/mod_evento/eventoDetalle.php');
+		include('../views/mod_chip/reporte.php');
 		include('../views/includes/footer.php');
 	}
 
@@ -186,28 +180,30 @@
 	//	FUNCIONES
 	//===========================================================================
 
-	function fnc_Busqueda($sex)
+	
+	function fnc_listarChips()
 	{
-		@session_start();
-		$url_parametros['sesion'] = $sex;
-		$validacion_post = true;
-
-		if ($validacion_post == true){
-			$business_Empresa = new business_Empresa();
-			$dtConsultarEmpresas = $business_Empresa -> fncBusinessConsultar();
-
-			include('../views/mod_empresa/div_consultarempresa.php');
-
-		}else{
-			header('Location: ../index.php?' . http_build_query($url_parametros)); 
-		}	
-
+		$business_Chip = new business_Chip();
+		$dtListarChip = $business_Chip -> fncBusinessListarChips();
+		$json_data = array(
+	
+			"data" => $dtListarChip   // total data array
+		);
+		echo json_encode($json_data);
 	}
-	
-	function fnc_VerificarRuc($sex)
+	function fnc_reporteCantidadChipsPorOperador()
 	{
+		$business_Chip = new business_Chip();
+		$dtListarReporteCantidadPorChip = $business_Chip -> fnc_reporteCantidadChipsPorOperador();
+		// $json_data = array(
 	
-
+		// 	"data" => $dtListarReporteCantidadPorChip  // total data array
+		// );
+		$result = array();
+		foreach ($dtListarReporteCantidadPorChip as $key => $value) {
+			array_push($result,array(strtoupper($value['operador']) ,$value["cantidad"]));
+		}
+		echo json_encode($result, JSON_NUMERIC_CHECK);
 	}
 
 	function fnc_VerificarSesionRuc($sex)

@@ -73,55 +73,6 @@
   
   <script src="../assets/src/plugins/plyr/dist/plyr.js"></script>
   <script src="https://cdn.shr.one/1.0.1/shr.js"></script>
-  
-	<script>
-		$('document').ready(function(){
-			$('.data-table').DataTable({
-				scrollCollapse: true,
-				autoWidth: false,
-				responsive: true,
-				columnDefs: [{
-					targets: "datatable-nosort",
-					orderable: false,
-				}],
-				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-				"language": {
-					"info": "_START_-_END_ of _TOTAL_ entries",
-					searchPlaceholder: "Search"
-				},
-			});
-			$('.data-table-export').DataTable({
-				scrollCollapse: true,
-				autoWidth: false,
-				responsive: true,
-				columnDefs: [{
-					targets: "datatable-nosort",
-					orderable: false,
-				}],
-				"lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
-				"language": {
-					"info": "_START_-_END_ of _TOTAL_ entries",
-					searchPlaceholder: "Search"
-				},
-				dom: 'Bfrtip',
-				buttons: [
-				'copy', 'csv', 'pdf', 'print'
-				]
-			});
-			var table = $('.select-row').DataTable();
-			$('.select-row tbody').on('click', 'tr', function () {
-				if ($(this).hasClass('selected')) {
-					$(this).removeClass('selected');
-				}
-				else {
-					table.$('tr.selected').removeClass('selected');
-					$(this).addClass('selected');
-				}
-			});
-			var multipletable = $('.multiple-select-row').DataTable();
-			$('.multiple-select-row tbody').on('click', 'tr', function () {
-				$(this).toggleClass('selected');
-			});
-		});
-	</script>
 
+  <script  src="../assets/js/jsChip/jsChip.js"></script>
+  

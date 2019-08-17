@@ -30,34 +30,17 @@
 				</div>
 				
 
-				<!-- Export Datatable start -->
-				<div class="pd-20 bg-white border-radius-4 box-shadow mb-30">
-					<div class="clearfix mb-20">
-						<div class="pull-left">
-							<h5 class="text-blue">Data Table with Export Buttons</h5>
+				<!-- chart start -->
+				<div class="row">
+				
+					<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-30">
+						<div class="bg-white pd-20 box-shadow border-radius-5 height-100-p">
+							<div id="chart5"></div>
 						</div>
 					</div>
-					<div class="row">
-						<table id="tablaListarChip"class="stripe hover multiple-select-row data-table-export nowrap compact">
-							<thead>
-								<tr>
-									<th class="table-plus datatable-nosort">Numero Chip</th>
-									<th>Tipo Contrato</th>
-									<th>Operador</th>
-									
-									<th>Fecha Contrato</th>
-									<th>Meses de Servicio</th>
-                                    <th></th>
-                                    
-									
-								</tr>
-							</thead>
-							
-                    </div>
-                    
-                    
+					
 				</div>
-                <!-- Export Datatable End -->
+                <!--chart End -->
 
 
 			</div>

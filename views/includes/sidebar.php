@@ -1,3 +1,4 @@
+<?php $menu_class_active = 'class="active"'; ?>
 	<div class="left-side-bar">
 		<div class="brand-logo">
 			<a href="index.php">
@@ -14,6 +15,15 @@
 						<ul class="submenu">
 							<li><a href="index.php">Dashboard style 1</a></li>
 							<li><a href="index2.php">Dashboard style 2</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="fa fa-microchip"></span><span class="mtext">Chip</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="../modules/chip.php?v=index" <?php if($menu_activo == 'listarChip') {echo$menu_class_active;} ?> >Listado</a></li>
+							<li><a href="../modules/chip.php?v=reporte" <?php if($menu_activo == 'reporteChip') {echo$menu_class_active;} ?> >Reporte</a></li>
 						</ul>
 					</li>
 					<li class="dropdown">

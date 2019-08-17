@@ -20,10 +20,10 @@ class connection
 	function __construct()
 	{
 		
-		$this->server = '172.35.123.8';
-		$this->database = 'Evento';
+		$this->server = 'localhost';
+		$this->database = 'GPSTEL';
 		$this->userid = 'sa';
-		$this->passwd = '12345';
+		$this->passwd = 'upt';
 	}
 
 

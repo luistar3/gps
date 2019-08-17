@@ -1,7 +1,7 @@
 <?php 
 	// ini_set("session.cookie_lifetime","10");
 	// ini_set("session.gc_maxlifetime","10"); 
-	include_once($_SERVER["DOCUMENT_ROOT"] . '/EventosWeb/complements/funciones.php');
+	include_once($_SERVER["DOCUMENT_ROOT"] . '/gps/complements/funciones.php');
 	//$sex = $_GET['sesion'];
 	//$url_parametros['sesion'] = $sex;
 	//fncVerificarSesionUsuario($sex);

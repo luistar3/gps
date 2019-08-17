@@ -1,10 +1,10 @@
 <?php 
 
-include_once($_SERVER["DOCUMENT_ROOT"] . '/EventosWeb/data/connection.php');
-include_once($_SERVER["DOCUMENT_ROOT"] . '/EventosWeb/data/data_Registro.php');
-include_once($_SERVER["DOCUMENT_ROOT"] . '/EventosWeb/data/data_Persona.php');
-include_once($_SERVER["DOCUMENT_ROOT"] . '/EventosWeb/complements/funciones.php');
-include_once($_SERVER["DOCUMENT_ROOT"] . '/EventosWeb/complements/navegador.php');
+include_once($_SERVER["DOCUMENT_ROOT"] . '/gps/data/connection.php');
+include_once($_SERVER["DOCUMENT_ROOT"] . '/gps/data/data_Registro.php');
+include_once($_SERVER["DOCUMENT_ROOT"] . '/gps/data/data_Persona.php');
+include_once($_SERVER["DOCUMENT_ROOT"] . '/gps/complements/funciones.php');
+include_once($_SERVER["DOCUMENT_ROOT"] . '/gps/complements/navegador.php');
 
 class business_Registro
 {
