@@ -75,11 +75,20 @@
                   
               } },
            
-            { data: 'fechacontrato' },
+            { data: 'fechacontrato',
+              render : function (data) {
+                  return('<a href="javascript:;"><i class="icon-copy fa fa-calendar" aria-hidden="true"></i> calendar</a>');
+              }
+             },
             { data: 'difereciafechacontratohoy',
               render: function(data, type, row, meta){
                   return('<button type="button" class="btn btn-outline-info" disabled >'+data+'</button>');
               }
+            },
+            {data:'tarifa',
+                render: function (data, type, row, meta) {
+                    return ('<span class="badge badge-pill badge-secondary"> S/.' + data+'</span>');
+             }
             },
             
             { "defaultContent": '<div class="dropdown"><a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="fa fa-eye"></i> View</a>	<a class="dropdown-item" href="#"><i class="fa fa-pencil"></i> Edit</a><a class="dropdown-item"  id = "delete" href="#"><i class="fa fa-trash"></i> Delete</a>	</div>	</div>'}

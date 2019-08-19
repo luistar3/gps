@@ -51,6 +51,8 @@
   <script src="../assets/src/plugins/highcharts-6.0.7/code/highcharts-3d.src.js"></script>
 
 	<script src="../assets/src/plugins/highcharts-6.0.7/code/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js">
 	<script src="../assets/src/plugins/jvectormap/jquery-jvectormap-2.0.3.min.js"></script>
   <script src="../assets/src/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 

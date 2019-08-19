@@ -2,7 +2,7 @@
 <html>
 
   <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=8"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    
 
     

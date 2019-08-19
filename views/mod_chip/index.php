@@ -43,10 +43,10 @@
 								<tr>
 									<th class="table-plus datatable-nosort">Numero Chip</th>
 									<th>Tipo Contrato</th>
-									<th>Operador</th>
-									
+									<th>Operador</th>									
 									<th>Fecha Contrato</th>
 									<th>Meses de Servicio</th>
+									<th>Tarifa</th>
                                     <th></th>
                                     
 									

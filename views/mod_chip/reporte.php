@@ -39,7 +39,14 @@
 						</div>
 					</div>
 					
+					<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-30">
+						<div class="bg-white pd-20 box-shadow border-radius-5 height-100-p">
+							<div id="chartPrecio"></div>
+						</div>
+					</div>
+					
 				</div>
+
                 <!--chart End -->
 
 
