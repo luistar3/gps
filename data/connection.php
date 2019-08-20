@@ -35,6 +35,7 @@ class connection
 
 		if (!isset($status))
 		{
+			ini_set('mssql.charset', 'UTF-8');
 			$status = mssql_connect($this -> server, $this -> userid, $this -> passwd);
 			mssql_query('set dateformat dmy');
     	mssql_query('set datefirst 1');

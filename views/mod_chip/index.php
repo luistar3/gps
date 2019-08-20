@@ -55,12 +55,14 @@
 										</div>
 										<div class="modal-body">
 																						
-										<form>
-																						
+										<form action="" role="form">
+
+																					
 												<div class="form-group row">
 													<label class="col-sm-12 col-md-2 col-form-label">Numero de la linea</label>
 													<div class="col-sm-12 col-md-10">
-														<input class="form-control" value="" type="number" placeholder="920388043">
+														<input class="form-control" value="" type="number" placeholder="920388043" 
+														data-validation="number"data-validation-error-msg="Escriba un Numero válido"/>
 													</div>
 												</div>
 												<div class="form-group row">
@@ -100,14 +102,14 @@
 														</select>
 													</div>
 												</div>
-											
-											</form>
+											<div class=" form-group modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+												<button type="submit" id="chipGuardar"class="btn btn-primary">Save changes</button>
+											</div>
+										</form>
 																		
 										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-											<button type="button" id="chipGuardar"class="btn btn-primary">Save changes</button>
-										</div>
+										
 									</div>
 								</div>
 							</div>

@@ -11,7 +11,17 @@
         }
       
 
+      $.validate({
+        modules: 'security, toggleDisabled',
+        onSuccess: function () {
+          alert('valid');
+          return false;
+        }
+      });
+
     });
+
+    
 
     $('#chipGuardar').click(function(){
 

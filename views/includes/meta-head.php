@@ -64,5 +64,5 @@
   <link rel="stylesheet" type="text/css" href="../assets/src/plugins/ion-rangeslider/css/ion.rangeSlider.css">
   <link rel="stylesheet" type="text/css" href="../assets/src/plugins/ion-rangeslider/css/ion.rangeSlider.skinHTML5.css">
   <link rel="stylesheet" type="text/css" href="../assets/src/plugins/plyr/dist/plyr.css">
-
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   </head>

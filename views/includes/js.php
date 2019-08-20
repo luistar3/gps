@@ -77,4 +77,6 @@
   <script src="https://cdn.shr.one/1.0.1/shr.js"></script>
 
   <script  src="../assets/js/jsChip/jsChip.js"></script>
+    
+    <script  src="../assets/js/jquery.form-validator.min.js"></script>
   
