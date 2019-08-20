@@ -78,7 +78,7 @@
 					fnc_VerificarAforo($sex);
 				break;
 			case 'Q6SwcynHWV':
-					fnc_VerificarSesionRuc($sex);
+					fnc_reporteCantidadDineroPorOperador();
 				break;
 			case 'Rd5f84FT7D':
 					fnc_reporteCantidadChipsPorOperador();
@@ -206,6 +206,21 @@
 		echo json_encode($result, JSON_NUMERIC_CHECK);
 	}
 
+	function fnc_reporteCantidadDineroPorOperador()
+	{
+		$business_Chip = new business_Chip();
+		$dtListarReporteCantidadDineroPorOperador = $business_Chip -> fnc_reporteCantidadDeDineroPorOperador();
+		// $json_data = array(
+	
+		// 	"data" => $dtListarReporteCantidadPorChip  // total data array
+		// );
+		$result = array();
+		//foreach ($dtListarReporteCantidadDineroPorOperador as $key => $value) {
+		//	array_push($result,array(strtoupper($value['operador']) ,$value["monto"]));
+		//}
+		echo json_encode($dtListarReporteCantidadDineroPorOperador, JSON_NUMERIC_CHECK);
+	}
+
 	function fnc_VerificarSesionRuc($sex)
 	{
 		@session_start();
@@ -232,130 +247,133 @@
 
 	function fnc_Agregar()
 	{
-		@session_start();
-		//$url_parametros['sesion'] = $sex;
-		$validacion_post = true;
 
-		if( !isset($_POST["nombreEvento"]) || $_POST["nombreEvento"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["lugar"]) || $_POST["lugar"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["tipoEvento"]) || $_POST["tipoEvento"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["estadoEvento"]) || $_POST["estadoEvento"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["descripcion"]) || $_POST["descripcion"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["fechaInicio"]) || $_POST["fechaInicio"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["fechaFinal"]) || $_POST["fechaFinal"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["tipoEvento"]) || $_POST["tipoEvento"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["aforo"]) || $_POST["aforo"] == "" ){ $validacion_post = false; }
-		//if( !isset($_POST["banner"]) || $_POST["banner"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["lat"]) || $_POST["lat"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["long"]) || $_POST["long"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["modalidadEvento"]) || $_POST["modalidadEvento"] == "" ){ $validacion_post = false; }
+		echo('1');
 
-		if( !isset($_POST["MagnitudEvento"]) || $_POST["MagnitudEvento"] == "" ){ $validacion_post = false; }
+// 		@session_start();
+// 		//$url_parametros['sesion'] = $sex;
+// 		$validacion_post = true;
+
+// 		if( !isset($_POST["nombreEvento"]) || $_POST["nombreEvento"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["lugar"]) || $_POST["lugar"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["tipoEvento"]) || $_POST["tipoEvento"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["estadoEvento"]) || $_POST["estadoEvento"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["descripcion"]) || $_POST["descripcion"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["fechaInicio"]) || $_POST["fechaInicio"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["fechaFinal"]) || $_POST["fechaFinal"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["tipoEvento"]) || $_POST["tipoEvento"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["aforo"]) || $_POST["aforo"] == "" ){ $validacion_post = false; }
+// 		//if( !isset($_POST["banner"]) || $_POST["banner"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["lat"]) || $_POST["lat"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["long"]) || $_POST["long"] == "" ){ $validacion_post = false; }
+// 		if( !isset($_POST["modalidadEvento"]) || $_POST["modalidadEvento"] == "" ){ $validacion_post = false; }
+
+// 		if( !isset($_POST["MagnitudEvento"]) || $_POST["MagnitudEvento"] == "" ){ $validacion_post = false; }
 					
-		if ($validacion_post == true){
+// 		if ($validacion_post == true){
 
-			$fechaInicio=$_POST["fechaInicio"];
-			$fechaFin=$_POST["fechaFinal"];
+// 			$fechaInicio=$_POST["fechaInicio"];
+// 			$fechaFin=$_POST["fechaFinal"];
 
-			$fechaInicio = date( 'Y-m-d', strtotime($fechaInicio));
-			$fechaFin = date( 'Y-m-d', strtotime($fechaFin));
+// 			$fechaInicio = date( 'Y-m-d', strtotime($fechaInicio));
+// 			$fechaFin = date( 'Y-m-d', strtotime($fechaFin));
 
 		
-			if ($fechaInicio <= $fechaFin) {
+// 			if ($fechaInicio <= $fechaFin) {
 				
 			
 
-			$data_Evento = new data_Evento();
+// 			$data_Evento = new data_Evento();
 
-			$data_Evento -> setVarNombre(strtoupper($_POST["nombreEvento"]) );
-			$data_Evento -> setVarLugar(strtoupper($_POST["lugar"]));
-			$data_Evento -> setVarEstado($_POST["estadoEvento"]);
-			$data_Evento -> setVarTipo($_POST["tipoEvento"]);
-			$data_Evento -> setVarDescripcion(strtoupper($_POST["descripcion"]));
-			$data_Evento -> setDateInicioFecha($_POST["fechaInicio"]." "."00:00:00.000");
-			$data_Evento -> setDateFinFecha($_POST["fechaFinal"]." "."00:00:00.000");
-			$data_Evento -> setStimeInicioHora("2007-05-08"." "."00:00:00");
-			$data_Evento -> setStimeFinHora("2007-05-08"." "."00:00:00");
-			$data_Evento -> setIntAforo($_POST["aforo"]);
-			$data_Evento -> setVarBanner("X.JPG");
-			$data_Evento -> setVarUbicacionLatitud($_POST["lat"]);
-			$data_Evento -> setVarUbicacionLongitud($_POST["long"]);
-			$data_Evento -> setIdTipoEvento($_POST["modalidadEvento"]);
-			$data_Evento -> setDependencia($_SESSION['usuario']["ses_IdDependencia"] );
-			$data_Evento -> setvarUsuarioCreador($_SESSION['usuario']["ses_IdUsuario"] );
+// 			$data_Evento -> setVarNombre(strtoupper($_POST["nombreEvento"]) );
+// 			$data_Evento -> setVarLugar(strtoupper($_POST["lugar"]));
+// 			$data_Evento -> setVarEstado($_POST["estadoEvento"]);
+// 			$data_Evento -> setVarTipo($_POST["tipoEvento"]);
+// 			$data_Evento -> setVarDescripcion(strtoupper($_POST["descripcion"]));
+// 			$data_Evento -> setDateInicioFecha($_POST["fechaInicio"]." "."00:00:00.000");
+// 			$data_Evento -> setDateFinFecha($_POST["fechaFinal"]." "."00:00:00.000");
+// 			$data_Evento -> setStimeInicioHora("2007-05-08"." "."00:00:00");
+// 			$data_Evento -> setStimeFinHora("2007-05-08"." "."00:00:00");
+// 			$data_Evento -> setIntAforo($_POST["aforo"]);
+// 			$data_Evento -> setVarBanner("X.JPG");
+// 			$data_Evento -> setVarUbicacionLatitud($_POST["lat"]);
+// 			$data_Evento -> setVarUbicacionLongitud($_POST["long"]);
+// 			$data_Evento -> setIdTipoEvento($_POST["modalidadEvento"]);
+// 			$data_Evento -> setDependencia($_SESSION['usuario']["ses_IdDependencia"] );
+// 			$data_Evento -> setvarUsuarioCreador($_SESSION['usuario']["ses_IdUsuario"] );
 
-			$depefijo = explode('*',($_POST["depefijo"]));
-			$areasector = $_POST["depegeneral"];
+// 			$depefijo = explode('*',($_POST["depefijo"]));
+// 			$areasector = $_POST["depegeneral"];
 
-			$data_Evento ->setIdPtaDependenciaFijo($depefijo[1]);
-			$data_Evento ->setIdDepe($depefijo[0]);
+// 			$data_Evento ->setIdPtaDependenciaFijo($depefijo[1]);
+// 			$data_Evento ->setIdDepe($depefijo[0]);
 			
-			if($_POST["MagnitudEvento"] == 'A'){
-					$data_Evento ->setIdPtaDependenciaFijo(null);
-					$data_Evento ->setIdDepe($areasector);
-			}
+// 			if($_POST["MagnitudEvento"] == 'A'){
+// 					$data_Evento ->setIdPtaDependenciaFijo(null);
+// 					$data_Evento ->setIdDepe($areasector);
+// 			}
 
 		
 	
-			$business_Evento = new business_Evento(); 
-			$bolAgregarEvento = $business_Evento -> fncBusinessAgregar($data_Evento); 
-			$data_DetalleEvento = new data_DetalleEvento();
-			$business_DealleEvento = new business_DetalleEvento(); 
-//print_r($bolAgregarEvento);
+// 			$business_Evento = new business_Evento(); 
+// 			$bolAgregarEvento = $business_Evento -> fncBusinessAgregar($data_Evento); 
+// 			$data_DetalleEvento = new data_DetalleEvento();
+// 			$business_DealleEvento = new business_DetalleEvento(); 
+// //print_r($bolAgregarEvento);
 		
-/*  agregar cronogamas por cada dia  */
+// /*  agregar cronogamas por cada dia  */
 		
-			while ($fechaInicio <= $fechaFin) {
+// 			while ($fechaInicio <= $fechaFin) {
 		
 
-			$data_DetalleEvento -> setIdEvento($bolAgregarEvento[0]["Id"]);
-			$data_DetalleEvento -> setVarEstado(1);
-			$data_DetalleEvento -> setDateFecha($fechaInicio);
-			$data_DetalleEvento -> setTimeInicioHora("08:00:00");
-			$data_DetalleEvento -> setTimeFinHora("16:00:00");
-			$data_DetalleEvento -> setVarComentario("Primera estapa") ;
+// 			$data_DetalleEvento -> setIdEvento($bolAgregarEvento[0]["Id"]);
+// 			$data_DetalleEvento -> setVarEstado(1);
+// 			$data_DetalleEvento -> setDateFecha($fechaInicio);
+// 			$data_DetalleEvento -> setTimeInicioHora("08:00:00");
+// 			$data_DetalleEvento -> setTimeFinHora("16:00:00");
+// 			$data_DetalleEvento -> setVarComentario("Primera estapa") ;
 			
 
 
-			$bolAgregarDetalle = $business_DealleEvento -> fncBusinessAgregar($data_DetalleEvento);
+// 			$bolAgregarDetalle = $business_DealleEvento -> fncBusinessAgregar($data_DetalleEvento);
 		
-			$fechaInicio=date ('Y-m-d', strtotime($fechaInicio. ' + 1 days'));
+// 			$fechaInicio=date ('Y-m-d', strtotime($fechaInicio. ' + 1 days'));
 
 			
 
-			}
+// 			}
 
-			$bolAgregarEvento=true;
-/*  ------agregar cronogamas por cada dia  -------*/
+// 			$bolAgregarEvento=true;
+// /*  ------agregar cronogamas por cada dia  -------*/
 			
 
-				 if($bolAgregarEvento){
-				 	$_SESSION['mensaje']["ses_MensajeTipo"] 	= "correcto";	
-				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "Registro insertado con éxito";		
-				 }else{
-				 	$_SESSION['mensaje']["ses_MensajeTipo"] 	= "error";	
-				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "No se registro el registro. Inténtelo nuevamente.";		
-				 }
-				 $url_parametros['v'] = 'index';
+// 				 if($bolAgregarEvento){
+// 				 	$_SESSION['mensaje']["ses_MensajeTipo"] 	= "correcto";	
+// 				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "Registro insertado con éxito";		
+// 				 }else{
+// 				 	$_SESSION['mensaje']["ses_MensajeTipo"] 	= "error";	
+// 				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "No se registro el registro. Inténtelo nuevamente.";		
+// 				 }
+// 				 $url_parametros['v'] = 'index';
 
 				
-				 header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
+// 				 header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
 				
 				
-			}else{
-				$url_parametros['v'] = 'index';
+// 			}else{
+// 				$url_parametros['v'] = 'index';
 
 				
-				header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
-					$_SESSION['mensaje']["ses_MensajeTipo"] 	= "Incorrecto";	
-				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "No se registro Fecha incorrectas";
-			}
+// 				header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
+// 					$_SESSION['mensaje']["ses_MensajeTipo"] 	= "Incorrecto";	
+// 				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "No se registro Fecha incorrectas";
+// 			}
 
-			}else{
+// 			}else{
 
-				$url_parametros['v'] = 'index';
-				header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
-			}	
+// 				$url_parametros['v'] = 'index';
+// 				header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
+// 			}	
 			
 		
 	}

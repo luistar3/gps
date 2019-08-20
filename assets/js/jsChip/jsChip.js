@@ -1,13 +1,81 @@
 	
     $('document').ready(function(){
-        listarChip();
-        fnc_reporteCantidadChipsPorOperador();
+       
+
+        if ( document.getElementById( "chart5" )) {
+            fnc_reporteCantidadChipsPorOperador();
+            fnc_cantidadDeDineroPorOperador();
+        }
+        if ( document.getElementById( "tablaListarChip" )) {
+            listarChip();
+        }
+      
 
     });
 
+    $('#chipGuardar').click(function(){
+
+        fnc_mensajeSweetConfirmacion();
+       
+    });
+
+    function fnc_mensajeSweetConfirmacion(){
+        swal({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then(function (result) {       
+
+            if(result.value){
+                var proceso = 'xZ6rQTOHxk';
+                $.ajax({
+                    type: "GET",
+                    url: "../modules/chip.php",
+                    data: { 'p': proceso},
+                   
+                    success: function(response) {
+                        if(response=='1'){
+                            swal(
+                                'Agregado!',
+                                'El Registro Fue Agregado',
+                                'success'
+                            )
+                            listarChip();
+                        }else{
+                            swal(
+                                'Error!',
+                                'El Registro No Fue Agregado',
+                                'error'
+                            )
+                        }
+                        
+                        console.log(response);
+                    },
+                    failure: function (response) {
+                        swal(
+                        "Internal Error",
+                        "Oops, your note was not saved.", // had a missing comma
+                        "error"
+                        )
+                    }
+                });
+               
+
+            }
+          
+        })
+    }
+
+
+
+
     
     $('#boton').click(function(){
-        listarPersonas();
+        listarChip();
     });
     var listarChip = function(){
 
@@ -77,7 +145,7 @@
            
             { data: 'fechacontrato',
               render : function (data) {
-                  return('<a href="javascript:;"><i class="icon-copy fa fa-calendar" aria-hidden="true"></i> calendar</a>');
+                  return('<a href="javascript:;"><i class="icon-copy fa fa-calendar" aria-hidden="true"> _ '+data+'</i></a>');
               }
              },
             { data: 'difereciafechacontratohoy',
@@ -88,6 +156,11 @@
             {data:'tarifa',
                 render: function (data, type, row, meta) {
                     return ('<span class="badge badge-pill badge-secondary"> S/.' + data+'</span>');
+             }
+            },
+            { data : 'traza',
+                render : function(data, type, row, meta){
+                    return('<div class="alert alert-dark" role="alert"><small> '+data+' </small></div>');
              }
             },
             
@@ -142,6 +215,22 @@
       
     }
 
+    function fnc_cantidadDeDineroPorOperador(){
+        var proceso ='Q6SwcynHWV';
+    
+        $.ajax({
+            type: 'GET',
+            data:{
+              'p': proceso
+            },   
+            url: '../modules/chip.php',
+            success: function(datos){
+                fnc_datosChartCantidadDeDineroPorOperador(datos);
+            }
+          });
+          
+    }
+
   
 function datosChart(datos){
 
@@ -162,7 +251,100 @@ function datosChart(datos){
         }]
     });
 
-    console.log(dati);
-    console.log(ed);
+  
    
+}
+
+function fnc_datosChartCantidadDeDineroPorOperador(datos){
+
+    var formato = [
+        {
+          name: "Chrome",
+          y: 62.74,
+          drilldown: "Chrome"
+        },
+        {
+          name: "Firefox",
+          y: 10.57,
+          drilldown: "Firefox"
+        },
+        {
+          name: "Internet Explorer",
+          y: 7.23,
+          drilldown: "Internet Explorer"
+        },
+        {
+          name: "Safari",
+          y: 5.58,
+          drilldown: "Safari"
+        },
+        {
+          name: "Edge",
+          y: 4.02,
+          drilldown: "Edge"
+        },
+        {
+          name: "Opera",
+          y: 1.92,
+          drilldown: "Opera"
+        },
+        {
+          name: "Other",
+          y: 7.62,
+          drilldown: null
+        }
+      ];
+
+    
+      console.log(formato);
+
+
+      datosParse=JSON.parse(datos);
+
+
+    Highcharts.chart('chartPrecio', {
+        chart: {
+          type: 'column'
+        },
+        title: {
+          text: 'Reporte del total de dinero a pagar por operador'
+        },
+        subtitle: {
+          text: ''
+        },
+        xAxis: {
+          type: 'category'
+        },
+        yAxis: {
+          title: {
+            text: 'Total de dinero a pagar por operador'
+          }
+      
+        },
+        legend: {
+          enabled: false
+        },
+        plotOptions: {
+          series: {
+            borderWidth: 0,
+            dataLabels: {
+              enabled: true,
+              format: 'S/.{point.y:.1f}'
+            }
+          }
+        },
+      
+        tooltip: {
+          headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+          pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>S/.{point.y:.2f}</b> de pago<br/>'
+        },
+      
+        series: [
+          {
+            name: "Operador Telefonico",
+            colorByPoint: true,
+            data: datosParse
+          }
+        ]
+      });
 }
