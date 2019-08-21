@@ -11,6 +11,7 @@
 		private $fecha;
 		private $fechacontrato;
 		private $eliminado;
+		private $tarifa;
 
 
 		/**
@@ -169,6 +170,26 @@
 		public function setEliminado($eliminado)
 		{
 				$this->eliminado = $eliminado;
+
+				return $this;
+		}
+
+		/**
+		 * Get the value of tarifa
+		 */ 
+		public function getTarifa()
+		{
+				return $this->tarifa;
+		}
+
+		/**
+		 * Set the value of tarifa
+		 *
+		 * @return  self
+		 */ 
+		public function setTarifa($tarifa)
+		{
+				$this->tarifa = $tarifa;
 
 				return $this;
 		}

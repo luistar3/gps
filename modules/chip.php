@@ -250,25 +250,45 @@
 
 		echo('1');
 
+		
 // 		@session_start();
 // 		//$url_parametros['sesion'] = $sex;
-// 		$validacion_post = true;
+		 $validacion_post = true;
+		if( !isset($_POST["chiNumero"]) || $_POST["chiNumero"] == "" ){ $validacion_post = false; }
+		if( !isset($_POST["chipTarifa"]) || $_POST["chipTarifa"] == "" ){ $validacion_post = false; }
+		if( !isset($_POST["chiFechaContrato"]) || $_POST["chiFechaContrato"] == "" ){ $validacion_post = false; }
+		if( !isset($_POST["chipOperador"]) || $_POST["chipOperador"] == "" ){ $validacion_post = false; }
+		if( !isset($_POST["chipTipo"]) || $_POST["chipTipo"] == "" ){ $validacion_post = false; }
+		 
+		if ($validacion_post == true) {
+			$chiNumero 			=$_POST["chiNumero"];
+			$chipTarifa			=$_POST["chipTarifa"];
+			$chiFechaContrato	=$_POST["chiFechaContrato"];
+			$chipOperador		=$_POST["chipOperador"];
+			$chipTipo			=$_POST["chipTipo"];
 
-// 		if( !isset($_POST["nombreEvento"]) || $_POST["nombreEvento"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["lugar"]) || $_POST["lugar"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["tipoEvento"]) || $_POST["tipoEvento"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["estadoEvento"]) || $_POST["estadoEvento"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["descripcion"]) || $_POST["descripcion"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["fechaInicio"]) || $_POST["fechaInicio"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["fechaFinal"]) || $_POST["fechaFinal"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["tipoEvento"]) || $_POST["tipoEvento"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["aforo"]) || $_POST["aforo"] == "" ){ $validacion_post = false; }
-// 		//if( !isset($_POST["banner"]) || $_POST["banner"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["lat"]) || $_POST["lat"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["long"]) || $_POST["long"] == "" ){ $validacion_post = false; }
-// 		if( !isset($_POST["modalidadEvento"]) || $_POST["modalidadEvento"] == "" ){ $validacion_post = false; }
+			$business_Chip = new business_Chip();
+			$data_Chip = new data_Chip();
+			$dataChip = $business_Chip -> fnc_buscarChipPorNumero($chiNumero); 
 
-// 		if( !isset($_POST["MagnitudEvento"]) || $_POST["MagnitudEvento"] == "" ){ $validacion_post = false; }
+			if (count($dataChip)>0) {
+				echo('Ya existe un chip con ese numero registrado');
+			} else {
+				$data_Chip -> setOperador(str_replace($chipOperador));
+				$data_Chip -> setTipo_contrato (str_replace($chipTipo));
+				$data_Chip -> setNumero(str_replace($chiNumero));
+				$data_Chip -> setFechacontrato(str_replace($chiFechaContrato));
+				$data_Chip -> setTarifa(str_replace($chipTarifa));
+				$bolAgregarChip=  $business_Chip -> fnc_buscarChipPorNumero($data_Chip);
+				if ($bolAgregarChip) {
+					echo('Registrado con exito');
+				}else {
+					echo('Registrado fallido');
+				}
+			}
+
+			
+		}
 					
 // 		if ($validacion_post == true){
 

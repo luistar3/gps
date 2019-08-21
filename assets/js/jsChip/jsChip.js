@@ -27,11 +27,23 @@
 
     $('#chipGuardar').click(function(){
 
-        fnc_mensajeSweetConfirmacion();
-       
+        fnc_guardarChip();
+      var chiNumero = document.getElementById('chipNumero').value();
+      var chipTarifa = document.getElementById('chipTarifa').value();
+      var chiFechaContrato = document.getElementById('chiFechaContrato').value();
+      var chipOperador = document.getElementById('chipOperador').value();
+      var chipTipo = document.getElementById('chipTipo').value();
+      var parametros={
+        "p": "xZ6rQTOHxk",
+        "chiNumero": chiNumero,
+        "chipTarifa": chipTarifa,
+        "chiFechaContrato": chiFechaContrato,
+        "chipOperador": chipOperador,
+        "chipTipo": chipTipo
+      };
     });
 
-    function fnc_mensajeSweetConfirmacion(){
+    function fnc_guardarChip(){
         swal({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -47,7 +59,7 @@
                 $.ajax({
                     type: "GET",
                     url: "../modules/chip.php",
-                    data: { 'p': proceso},
+                    data: parametros,
                    
                     success: function(response) {
                         if(response=='1'){
