@@ -2,22 +2,24 @@
     $('document').ready(function(){
        
 
+      
         if ( document.getElementById( "chart5" )) {
             fnc_reporteCantidadChipsPorOperador();
             fnc_cantidadDeDineroPorOperador();
         }
         if ( document.getElementById( "tablaListarChip" )) {
             listarChip();
+
+            $.validate({
+              modules: 'security, toggleDisabled',
+              onSuccess: function () {
+                 
+                  return true;
+              }
+          });
         }
       
-
-      $.validate({
-        modules: 'security, toggleDisabled',
-        onSuccess: function () {
-          alert('valid');
-          return false;
-        }
-      });
+      
 
     });
 
@@ -51,14 +53,16 @@
                         if(response=='1'){
                             swal(
                                 'Agregado!',
-                                'El Registro Fue Agregado',
+                                'El Registro Fue Agregado'+response,
                                 'success'
                             )
                             listarChip();
+                            $('#chipCancelar').click();
+
                         }else{
                             swal(
                                 'Error!',
-                                'El Registro No Fue Agregado',
+                                'El Registro No Fue Agregado'+response,
                                 'error'
                             )
                         }

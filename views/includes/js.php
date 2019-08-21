@@ -78,5 +78,8 @@
 
   <script  src="../assets/js/jsChip/jsChip.js"></script>
     
-    <script  src="../assets/js/jquery.form-validator.min.js"></script>
+  <script  src="../assets/js/jquery.form-validator.min.js"></script>
+
+  <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
   

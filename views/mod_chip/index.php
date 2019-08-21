@@ -55,35 +55,38 @@
 										</div>
 										<div class="modal-body">
 																						
-										<form action="" role="form">
+										<form role="form" class="toggleDisabled" onsubmit="return false;">
 
 																					
 												<div class="form-group row">
 													<label class="col-sm-12 col-md-2 col-form-label">Numero de la linea</label>
 													<div class="col-sm-12 col-md-10">
 														<input class="form-control" value="" type="number" placeholder="920388043" 
-														data-validation="number"data-validation-error-msg="Escriba un Numero válido"/>
+														data-validation="number"data-validation-error-msg="Escriba un Numero Válido"/>
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-sm-12 col-md-2 col-form-label">Tarifa de la linea</label>
 													<div class="col-sm-12 col-md-10">
-														<input class="form-control" value="" type="number" placeholder="S./">
+														<input class="form-control" value="" type="text" placeholder="S./"
+														data-validation="number" data-validation-allowing="float" 
+		 												data-validation-decimal-separator="."data-validation-error-msg="Escriba un Tarifa Válido"/>
 													</div>
 												</div>
 												
 												<div class="form-group row">
 													<label class="col-sm-12 col-md-2 col-form-label">Fecha del Contrato</label>
 													<div class="col-sm-12 col-md-10">
-														<input class="form-control" placeholder="Select Date" type="date">
+														<input class="form-control" placeholder="Select Date" type="date"
+														data-validation="date"data-validation-error-msg="Escriba una Fecha"/>
 													</div>
 												</div>
 												
 												<div class="form-group row">
 												<label class="col-sm-12 col-md-2 col-form-label">Operador</label>
 												<div class="col-sm-12 col-md-10">
-													<select class="custom-select col-12">
-														<option selected="">Selecciona...</option>
+													<select class="custom-select col-12" data-validation="required" data-validation-error-msg="Escriba una Fecha">
+														<option value="">Selecciona...</option>
 														<option value="bitel">Bitel</option>
 														<option value="claro">Claro</option>
 														<option value="movistar">Movistar</option>
@@ -94,16 +97,16 @@
 												<div class="form-group row">
 													<label class="col-sm-12 col-md-2 col-form-label">Tipo de Contrato</label>
 													<div class="col-sm-12 col-md-10">
-														<select class="custom-select col-12">
-															<option selected="">Selecciona...</option>
+														<select class="custom-select col-12" data-validation="required">
+															<option value="">Selecciona...</option>
 															<option value="prepago">Pre-Pago</option>
 															<option value="postpago">Post-Pago</option>
 														
 														</select>
 													</div>
 												</div>
-											<div class=" form-group modal-footer">
-												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+											<div class="modal-footer">
+												<button type="button"  id="chipCancelar" class="btn btn-secondary" data-dismiss="modal">Close</button>
 												<button type="submit" id="chipGuardar"class="btn btn-primary">Save changes</button>
 											</div>
 										</form>
