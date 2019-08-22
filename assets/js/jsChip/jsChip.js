@@ -27,25 +27,26 @@
 
     $('#chipGuardar').click(function(){
 
-        fnc_guardarChip();
-      var chiNumero = document.getElementById('chipNumero').value();
-      var chipTarifa = document.getElementById('chipTarifa').value();
-      var chiFechaContrato = document.getElementById('chiFechaContrato').value();
-      var chipOperador = document.getElementById('chipOperador').value();
-      var chipTipo = document.getElementById('chipTipo').value();
+        
+      var chipNumero = document.getElementById('chipNumero').value;
+      var chipTarifa = document.getElementById('chipTarifa').value;
+      var chipFechaContrato = document.getElementById('chipFechaContrato').value;
+      var chipOperador = document.getElementById('chipOperador').value;
+      var chipTipo = document.getElementById('chipTipo').value;
       var parametros={
         "p": "xZ6rQTOHxk",
-        "chiNumero": chiNumero,
+        "chipNumero": chipNumero,
         "chipTarifa": chipTarifa,
-        "chiFechaContrato": chiFechaContrato,
+        "chipFechaContrato": chipFechaContrato,
         "chipOperador": chipOperador,
         "chipTipo": chipTipo
       };
+      fnc_guardarChip(parametros);
     });
 
-    function fnc_guardarChip(){
+function fnc_guardarChip(parametros){
         swal({
-            title: 'Are you sure?',
+            title: '¿Estas Seguro?',
             text: "You won't be able to revert this!",
             type: 'warning',
             showCancelButton: true,
@@ -65,26 +66,34 @@
                         if(response=='1'){
                             swal(
                                 'Agregado!',
-                                'El Registro Fue Agregado'+response,
+                                'El Registro Fue Agregado',
                                 'success'
                             )
                             listarChip();
                             $('#chipCancelar').click();
 
-                        }else{
+                        } else if (response == '3'){
                             swal(
                                 'Error!',
-                                'El Registro No Fue Agregado'+response,
-                                'error'
+                                'El Numero ya Existe',
+                              'error'
                             )
+                        }else{
+                          swal(
+                            'Error!',
+                            'Ups,El Registro No Fue Agregado',
+                            'error'
+                          )
                         }
+
+                        
                         
                         console.log(response);
                     },
                     failure: function (response) {
                         swal(
-                        "Internal Error",
-                        "Oops, your note was not saved.", // had a missing comma
+                        "Error Interno",
+                        "Vaya, tu registro no se guardó", // had a missing comma
                         "error"
                         )
                     }
@@ -105,33 +114,14 @@
     });
     var listarChip = function(){
 
-        var idioma = {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla",
-            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "Primero",
-                "sLast":     "Último",
-                "sNext":     "Siguiente",
-                "sPrevious": "Anterior"
-            },
-                "oAria": {
-                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                 }
-        }
+        var idioma = '';
+      
 
+      //$('#tablaListarChip').empty(); // empty in case the columns change
+       
         var table = $('#tablaListarChip').DataTable({
             "destroy":true,
+            "deferRender": true,
             "ajax": {
                 url: "../modules/chip.php", // json datasource				
                 type: 'GET',  // method  , by default get
@@ -140,6 +130,7 @@
                 }
 
             },
+          
             'columns': [
             { data: 'numero' },
             { data: 'tipo_contrato',
@@ -190,7 +181,7 @@
              }
             },
             
-            { "defaultContent": '<div class="dropdown"><a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="fa fa-eye"></i> View</a>	<a class="dropdown-item" href="#"><i class="fa fa-pencil"></i> Edit</a><a class="dropdown-item"  id = "delete" href="#"><i class="fa fa-trash"></i> Delete</a>	</div>	</div>'}
+            { "defaultContent": '<div class="dropdown"><a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="fa fa-eye"></i> View</a>	<a class="dropdown-item"  href="#"><i class="fa fa-pencil"></i> Edit</a><a class="dropdown-item"  id = "delete" href="#"><i class="fa fa-trash"></i> Delete</a>	</div>	</div>'}
             
             
             ],
@@ -215,10 +206,11 @@
 
         });
         
-        $('#tablaDatos tbody').on( 'click', '#delete', function () {
-        var datos = table.row( $(this).parents('tr') ).data();
-        console.log(datos);
-         datos =null;
+      $('#tablaListarChip tbody').on( 'click', '#delete', function () {
+       
+        var edatos = table.row( $(this).parents('tr') ).data();
+        console.log(edatos);
+         
 } );
 
 

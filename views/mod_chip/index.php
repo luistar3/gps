@@ -79,7 +79,7 @@
 												<div class="form-group row">
 													<label class="col-sm-12 col-md-2 col-form-label">Fecha del Contrato</label>
 													<div class="col-sm-12 col-md-10">
-														<input class="form-control" id="chiFechaContrato" placeholder="Select Date" type="date"
+														<input class="form-control" id="chipFechaContrato" placeholder="Select Date" type="date"
 														data-validation="date"data-validation-error-msg="Escriba una Fecha"/>
 													</div>
 												</div>
@@ -122,7 +122,7 @@
 					</div>
 					</div>
 					<div class="row">
-						<table id="tablaListarChip"class="stripe hover multiple-select-row data-table-export nowrap compact">
+						<table id="tablaListarChip"class="stripe data-table-export nowrap compact">
 							<thead>
 								<tr>
 									<th class="table-plus datatable-nosort">Numero Chip</th>

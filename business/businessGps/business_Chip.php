@@ -122,7 +122,7 @@ public function fnc_reporteCantidadDeDineroPorOperador(){
 					//$USRId = $_SESSION['usuario']["ses_USRId"] ;
 			// echo "usp_Sed_S_Egresado_Consultar ".$USRId.', '.$idPtaDependenciaFijo.', '.$NombreApellido.', '.$varDni.', '.$intEdad.', '.$IdGradoAcademico.', '.$IdSectorAcademico;
 			$proc = mssql_init($sql, $connectionstatus); 
-			mssql_bind($proc, '@USRId', $USRId, SQLVARCHAR, false, false, 18);
+			mssql_bind($proc, '@numeroChip', $numero, SQLVARCHAR, false, false, 18);
 			// mssql_bind($proc, '@IdPtaDependenciaFijo', $idPtaDependenciaFijo, SQLINT4, false, false, 10);
 
 						// mssql_bind($proc, '@NombreApellido', $NombreApellido, SQLVARCHAR, false, false, 10); 
@@ -146,6 +146,51 @@ public function fnc_reporteCantidadDeDineroPorOperador(){
 		}
 		
 	}
+	public function fnc_insertarChip($chip){
+		//@session_start();
+		$connection = new connection();
+		$connectionstatus = $connection -> openConnection();
+		if ($connectionstatus) 
+		{
+			$sql = "usp_Gps_Chip_Insertar";
+
+			$operador 		= $chip -> getOperador();
+			$tipo_contrato  = $chip -> getTipo_contrato();
+			$numero 		= $chip -> getNumero();
+			$fechacontrato  = $chip -> getFechacontrato();
+			$tarifa 		= $chip -> getTarifa();
+					//$USRId = $_SESSION['usuario']["ses_USRId"] ;
+			// echo "usp_Sed_S_Egresado_Consultar ".$USRId.', '.$idPtaDependenciaFijo.', '.$NombreApellido.', '.$varDni.', '.$intEdad.', '.$IdGradoAcademico.', '.$IdSectorAcademico;
+			$proc = mssql_init($sql, $connectionstatus); 
+			mssql_bind($proc, '@operador', $operador, SQLVARCHAR, false, false, 50);
+			mssql_bind($proc, '@tipo_contrato', $tipo_contrato, SQLVARCHAR, false, false, 50);
+			mssql_bind($proc, '@numero', $numero, SQLVARCHAR, false, false, 50);
+			mssql_bind($proc, '@fechacontrato', $fechacontrato, SQLVARCHAR, false, false, 50);
+			mssql_bind($proc, '@tarifa', $tarifa, SQLVARCHAR, false, false, 50);
+			// mssql_bind($proc, '@IdPtaDependenciaFijo', $idPtaDependenciaFijo, SQLINT4, false, false, 10);
+
+						// mssql_bind($proc, '@NombreApellido', $NombreApellido, SQLVARCHAR, false, false, 10); 
+						// mssql_bind($proc, '@varDni', $varDni, SQLVARCHAR, false, false, 10); 
+						// mssql_bind($proc, '@intEdad', $intEdad, SQLINT4, false, false, 10); 
+						// mssql_bind($proc, '@IdGradoAcademico', $IdGradoAcademico, SQLINT4, false, false, 10); 
+						// mssql_bind($proc, '@IdSectorAcademico', $IdSectorAcademico, SQLINT4, false, false, 10); 
+
+		 $result = mssql_execute($proc);
+
+		if ($result) {
+			$connection -> closeConnection($connectionstatus);
+			unset($connectionstatus);
+			unset($connection);
+			return true;
+		}else{
+			$connection -> closeConnection($connectionstatus);
+			unset($connectionstatus);
+			unset($connection);
+			return false;
+		}
+			
+	}
+}
 	public function fncBusinessListarEventosDetalle(){
 
 			@session_start();

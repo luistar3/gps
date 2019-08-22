@@ -248,42 +248,41 @@
 	function fnc_Agregar()
 	{
 
-		echo('1');
-
-		
-// 		@session_start();
-// 		//$url_parametros['sesion'] = $sex;
 		 $validacion_post = true;
-		if( !isset($_POST["chiNumero"]) || $_POST["chiNumero"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["chipTarifa"]) || $_POST["chipTarifa"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["chiFechaContrato"]) || $_POST["chiFechaContrato"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["chipOperador"]) || $_POST["chipOperador"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["chipTipo"]) || $_POST["chipTipo"] == "" ){ $validacion_post = false; }
+		if( !isset($_GET["chipNumero"]) || $_GET["chipNumero"] == "" ){ $validacion_post = false; }
+		if( !isset($_GET["chipTarifa"]) || $_GET["chipTarifa"] == "" ){ $validacion_post = false; }
+		if( !isset($_GET["chipFechaContrato"]) || $_GET["chipFechaContrato"] == "" ){ $validacion_post = false; }
+		if( !isset($_GET["chipOperador"]) || $_GET["chipOperador"] == "" ){ $validacion_post = false; }
+		if( !isset($_GET["chipTipo"]) || $_GET["chipTipo"] == "" ){ $validacion_post = false; }
 		 
 		if ($validacion_post == true) {
-			$chiNumero 			=$_POST["chiNumero"];
-			$chipTarifa			=$_POST["chipTarifa"];
-			$chiFechaContrato	=$_POST["chiFechaContrato"];
-			$chipOperador		=$_POST["chipOperador"];
-			$chipTipo			=$_POST["chipTipo"];
-
+			$chipNumero 		=$_GET["chipNumero"];
+			$chipTarifa			=$_GET["chipTarifa"];
+			$chipFechaContrato	=$_GET["chipFechaContrato"];
+			$chipOperador		=$_GET["chipOperador"];
+			$chipTipo			=$_GET["chipTipo"];
+  
 			$business_Chip = new business_Chip();
 			$data_Chip = new data_Chip();
-			$dataChip = $business_Chip -> fnc_buscarChipPorNumero($chiNumero); 
-
+			$dataChip = $business_Chip -> fnc_buscarChipPorNumero(str_replace(' ','',$chipNumero)); 
+				
 			if (count($dataChip)>0) {
-				echo('Ya existe un chip con ese numero registrado');
+				echo('3');
 			} else {
-				$data_Chip -> setOperador(str_replace($chipOperador));
-				$data_Chip -> setTipo_contrato (str_replace($chipTipo));
-				$data_Chip -> setNumero(str_replace($chiNumero));
-				$data_Chip -> setFechacontrato(str_replace($chiFechaContrato));
-				$data_Chip -> setTarifa(str_replace($chipTarifa));
-				$bolAgregarChip=  $business_Chip -> fnc_buscarChipPorNumero($data_Chip);
+				$data_Chip -> setOperador(str_replace(' ','',$chipOperador));
+				$data_Chip -> setTipo_contrato(str_replace(' ','',$chipTipo));
+				$data_Chip -> setNumero(str_replace(' ','',$chipNumero));
+				$data_Chip -> setFechacontrato($chipFechaContrato);
+				$data_Chip -> setTarifa($chipTarifa);
+				//print_r($data_Chip);
+
+				//print_r($dataChip);
+			
+				$bolAgregarChip=  $business_Chip -> fnc_insertarChip($data_Chip);
 				if ($bolAgregarChip) {
-					echo('Registrado con exito');
+					echo('1');
 				}else {
-					echo('Registrado fallido');
+					echo('0');
 				}
 			}
 
