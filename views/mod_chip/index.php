@@ -43,7 +43,7 @@
 							<a href="#" id="boton" >
 							boton
 							</a> -->
-							<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#bd-example-modal-lg" type="button" style="color: rgb(255, 255, 255); background-color: rgb(0, 123, 181);" >
+							<a href="#" id="chipBotonNuevo" class="btn btn-primary" data-toggle="modal" data-target="#bd-example-modal-lg" type="button" style="color: rgb(255, 255, 255); background-color: rgb(0, 123, 181);" >
 							AGREGAR NUEVO
 							</a>
 							<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -55,8 +55,8 @@
 										</div>
 										<div class="modal-body">
 																						
-										<form role="form" class="toggleDisabled" onsubmit="return false;">
-
+										<form role="form" id="" class="toggleDisabled" onsubmit="return false;">
+												<input id="chipId" value="0" type="hidden"/>
 																					
 												<div class="form-group row">
 													
@@ -64,7 +64,7 @@
 													
 													<div class="col-sm-12 col-md-10">
 														<input class="form-control" id="chipNumero" value="" type="number" placeholder="920388043" 
-														data-validation="number"data-validation-error-msg="Escriba un Numero Válido"/>
+														data-validation="number" data-validation-allowing="float,negative" data-validation-error-msg="Escriba un Numero Válido"/>
 													</div>
 												</div>
 												<div class="form-group row">
@@ -124,7 +124,7 @@
 					<div class="row">
 						<table id="tablaListarChip"class="stripe data-table-export nowrap compact">
 							<thead>
-								<tr>
+								<tr id="chipLlenar">
 									<th class="table-plus datatable-nosort">Numero Chip</th>
 									<th>Tipo Contrato</th>
 									<th>Operador</th>									

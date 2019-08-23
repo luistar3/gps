@@ -256,6 +256,7 @@
 		if( !isset($_GET["chipTipo"]) || $_GET["chipTipo"] == "" ){ $validacion_post = false; }
 		 
 		if ($validacion_post == true) {
+			$chiId				=$_GET["chipId"];
 			$chipNumero 		=$_GET["chipNumero"];
 			$chipTarifa			=$_GET["chipTarifa"];
 			$chipFechaContrato	=$_GET["chipFechaContrato"];
@@ -266,341 +267,54 @@
 			$data_Chip = new data_Chip();
 			$dataChip = $business_Chip -> fnc_buscarChipPorNumero(str_replace(' ','',$chipNumero)); 
 				
-			if (count($dataChip)>0) {
-				echo('3');
-			} else {
-				$data_Chip -> setOperador(str_replace(' ','',$chipOperador));
-				$data_Chip -> setTipo_contrato(str_replace(' ','',$chipTipo));
-				$data_Chip -> setNumero(str_replace(' ','',$chipNumero));
-				$data_Chip -> setFechacontrato($chipFechaContrato);
-				$data_Chip -> setTarifa($chipTarifa);
-				//print_r($data_Chip);
-
-				//print_r($dataChip);
-			
-				$bolAgregarChip=  $business_Chip -> fnc_insertarChip($data_Chip);
-				if ($bolAgregarChip) {
-					echo('1');
-				}else {
-					echo('0');
-				}
-			}
-
-			
-		}
-					
-// 		if ($validacion_post == true){
-
-// 			$fechaInicio=$_POST["fechaInicio"];
-// 			$fechaFin=$_POST["fechaFinal"];
-
-// 			$fechaInicio = date( 'Y-m-d', strtotime($fechaInicio));
-// 			$fechaFin = date( 'Y-m-d', strtotime($fechaFin));
-
-		
-// 			if ($fechaInicio <= $fechaFin) {
+						
 				
-			
+					if (count($dataChip)>0 && $dataChip[0]['idchip']!=$chiId) {
+					echo('3');
+					} else {
 
-// 			$data_Evento = new data_Evento();
+						if ($chiId!=0) {
+							$data_Chip -> setOperador(str_replace(' ','',$chipOperador));
+							$data_Chip -> setTipo_contrato(str_replace(' ','',$chipTipo));
+							$data_Chip -> setNumero(str_replace(' ','',$chipNumero));
+							$data_Chip -> setFechacontrato($chipFechaContrato);
+							$data_Chip -> setTarifa($chipTarifa);
+							$data_Chip -> setIdchip($chiId);
+							fnc_Modificar($data_Chip);
+						} else {
+							$data_Chip -> setOperador(str_replace(' ','',$chipOperador));
+							$data_Chip -> setTipo_contrato(str_replace(' ','',$chipTipo));
+							$data_Chip -> setNumero(str_replace(' ','',$chipNumero));
+							$data_Chip -> setFechacontrato($chipFechaContrato);
+							$data_Chip -> setTarifa($chipTarifa);
+							//print_r($data_Chip);
 
-// 			$data_Evento -> setVarNombre(strtoupper($_POST["nombreEvento"]) );
-// 			$data_Evento -> setVarLugar(strtoupper($_POST["lugar"]));
-// 			$data_Evento -> setVarEstado($_POST["estadoEvento"]);
-// 			$data_Evento -> setVarTipo($_POST["tipoEvento"]);
-// 			$data_Evento -> setVarDescripcion(strtoupper($_POST["descripcion"]));
-// 			$data_Evento -> setDateInicioFecha($_POST["fechaInicio"]." "."00:00:00.000");
-// 			$data_Evento -> setDateFinFecha($_POST["fechaFinal"]." "."00:00:00.000");
-// 			$data_Evento -> setStimeInicioHora("2007-05-08"." "."00:00:00");
-// 			$data_Evento -> setStimeFinHora("2007-05-08"." "."00:00:00");
-// 			$data_Evento -> setIntAforo($_POST["aforo"]);
-// 			$data_Evento -> setVarBanner("X.JPG");
-// 			$data_Evento -> setVarUbicacionLatitud($_POST["lat"]);
-// 			$data_Evento -> setVarUbicacionLongitud($_POST["long"]);
-// 			$data_Evento -> setIdTipoEvento($_POST["modalidadEvento"]);
-// 			$data_Evento -> setDependencia($_SESSION['usuario']["ses_IdDependencia"] );
-// 			$data_Evento -> setvarUsuarioCreador($_SESSION['usuario']["ses_IdUsuario"] );
-
-// 			$depefijo = explode('*',($_POST["depefijo"]));
-// 			$areasector = $_POST["depegeneral"];
-
-// 			$data_Evento ->setIdPtaDependenciaFijo($depefijo[1]);
-// 			$data_Evento ->setIdDepe($depefijo[0]);
-			
-// 			if($_POST["MagnitudEvento"] == 'A'){
-// 					$data_Evento ->setIdPtaDependenciaFijo(null);
-// 					$data_Evento ->setIdDepe($areasector);
-// 			}
-
-		
-	
-// 			$business_Evento = new business_Evento(); 
-// 			$bolAgregarEvento = $business_Evento -> fncBusinessAgregar($data_Evento); 
-// 			$data_DetalleEvento = new data_DetalleEvento();
-// 			$business_DealleEvento = new business_DetalleEvento(); 
-// //print_r($bolAgregarEvento);
-		
-// /*  agregar cronogamas por cada dia  */
-		
-// 			while ($fechaInicio <= $fechaFin) {
-		
-
-// 			$data_DetalleEvento -> setIdEvento($bolAgregarEvento[0]["Id"]);
-// 			$data_DetalleEvento -> setVarEstado(1);
-// 			$data_DetalleEvento -> setDateFecha($fechaInicio);
-// 			$data_DetalleEvento -> setTimeInicioHora("08:00:00");
-// 			$data_DetalleEvento -> setTimeFinHora("16:00:00");
-// 			$data_DetalleEvento -> setVarComentario("Primera estapa") ;
-			
-
-
-// 			$bolAgregarDetalle = $business_DealleEvento -> fncBusinessAgregar($data_DetalleEvento);
-		
-// 			$fechaInicio=date ('Y-m-d', strtotime($fechaInicio. ' + 1 days'));
-
-			
-
-// 			}
-
-// 			$bolAgregarEvento=true;
-// /*  ------agregar cronogamas por cada dia  -------*/
-			
-
-// 				 if($bolAgregarEvento){
-// 				 	$_SESSION['mensaje']["ses_MensajeTipo"] 	= "correcto";	
-// 				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "Registro insertado con éxito";		
-// 				 }else{
-// 				 	$_SESSION['mensaje']["ses_MensajeTipo"] 	= "error";	
-// 				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "No se registro el registro. Inténtelo nuevamente.";		
-// 				 }
-// 				 $url_parametros['v'] = 'index';
-
-				
-// 				 header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
-				
-				
-// 			}else{
-// 				$url_parametros['v'] = 'index';
-
-				
-// 				header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
-// 					$_SESSION['mensaje']["ses_MensajeTipo"] 	= "Incorrecto";	
-// 				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "No se registro Fecha incorrectas";
-// 			}
-
-// 			}else{
-
-// 				$url_parametros['v'] = 'index';
-// 				header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
-// 			}	
-			
-		
-	}
-
-	function fnc_Modificar()
-	{
-		@session_start();
-		//$url_parametros['sesion'] = $sex;
-		$validacion_post = true;
-		if( !isset($_POST["hidden_idEvento"]) || $_POST["hidden_idEvento"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["nombreEvento"]) || $_POST["nombreEvento"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["lugar"]) || $_POST["lugar"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["tipoEvento"]) || $_POST["tipoEvento"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["estadoEvento"]) || $_POST["estadoEvento"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["descripcion"]) || $_POST["descripcion"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["fechaInicio"]) || $_POST["fechaInicio"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["fechaFinal"]) || $_POST["fechaFinal"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["tipoEvento"]) || $_POST["tipoEvento"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["aforo"]) || $_POST["aforo"] == "" ){ $validacion_post = false; }
-		//if( !isset($_POST["banner"]) || $_POST["banner"] == "" || $_POST["xBanner"] =="" ){ $validacion_post = false; }
-		if( !isset($_POST["lat"]) || $_POST["lat"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["long"]) || $_POST["long"] == "" ){ $validacion_post = false; }
-		if( !isset($_POST["modalidadEvento"]) || $_POST["modalidadEvento"] == "" ){ $validacion_post = false; }
-		//if( !isset($_POST["depefijo"]) || $_POST["depefijo"] == "" ){ $validacion_post = false; }
-		
-		if( !isset($_POST["MagnitudEvento"]) || $_POST["MagnitudEvento"] == "" ){ $validacion_post = false; }
-
-			
-		if ($validacion_post == true){
-
-			$fechaInicio=$_POST["fechaInicio"];
-			$fechaFin=$_POST["fechaFinal"];
-
-			$fechaInicio = date( 'Y-m-d', strtotime($fechaInicio));
-			$fechaFin = date( 'Y-m-d', strtotime($fechaFin));
-
-			
-			if ($fechaInicio <= $fechaFin) {
-
-			$data_Evento = new data_Evento();
-			$data_Evento -> setIdEvento( base64_decode($_POST["hidden_idEvento"]));
-			$data_Evento -> setVarNombre(strtoupper($_POST["nombreEvento"]));
-			$data_Evento -> setVarLugar(strtoupper($_POST["lugar"]));
-			$data_Evento -> setVarEstado($_POST["estadoEvento"]);
-			$data_Evento -> setVarTipo($_POST["tipoEvento"]);
-			$data_Evento -> setVarDescripcion(strtoupper($_POST["descripcion"]));
-			$data_Evento -> setDateInicioFecha($_POST["fechaInicio"]." "."00:00:00.000");
-			$data_Evento -> setDateFinFecha($_POST["fechaFinal"]." "."00:00:00.000");
-			$data_Evento -> setStimeInicioHora("2007-05-08"." ".$_POST["horaInicio"]);
-			$data_Evento -> setStimeFinHora("2007-05-08"." ".$_POST["horaFinal"]);
-			$data_Evento -> setIntAforo($_POST["aforo"]);
-
-			$depefijo 		= explode('*',($_POST["depefijo"]));
-			$areasector = $_POST["depegeneral"];
-			$data_Evento ->setIdPtaDependenciaFijo($depefijo[1]);
-			$data_Evento ->setIdDepe($depefijo[0]);
-			
-			if($_POST["MagnitudEvento"] == 'A'){
-					$data_Evento ->setIdPtaDependenciaFijo(null);
-					$data_Evento ->setIdDepe($areasector);
-			}
-
-				if(!isset($_POST["banner"]) || $_POST["banner"] == "") {
-					$data_Evento -> setVarBanner($_POST["xBanner"]);
-				} else {
-					$data_Evento -> setVarBanner($_POST["banner"]);
-				}
-
-			
-			
-			$data_Evento -> setVarUbicacionLatitud($_POST["lat"]);
-			$data_Evento -> setVarUbicacionLongitud($_POST["long"]);
-			$data_Evento -> setIdTipoEvento($_POST["modalidadEvento"]);
-
-			$data_DetalleEvento = new data_DetalleEvento();
-			$bus_DealleEvento = new business_DetalleEvento();
-			$data_DetalleEvento -> setIdEvento( base64_decode( $_POST["hidden_idEvento"]));
-			//print_r($data_DetalleEvento);
-			$ListarDetalleEventos = $bus_DealleEvento -> fncBusinessListarEventosDetalle($data_DetalleEvento);
-			//print_r($ListarDetalleEventos);
-
-
-			$modFechasValidadas = "";
-			foreach ($ListarDetalleEventos as $value) {
-				
-				 if (($fechaInicio <=$value["Fecha"]) && ($value["Fecha"]<=$fechaFin )) {
-					 $modFechasValidadas =1;
-					 //echo ("entro".$fechaInicio ."<=".$value["Fecha"]."<=".$fechaFin );
-					 //echo ("<br>");
-				 }
-				 else {
-					 $modFechasValidadas = 0;
-					 break;
-				 }
-
-				
-			}
-
-
-		if ($modFechasValidadas==1) {
-
-			$business_Evento = new business_Evento(); 
-			$bolAgregarEvento = $business_Evento -> fncBusinessModificar($data_Evento);
-			if($bolAgregarEvento){
-
-				
-				$business_DetalleEvento = new business_DetalleEvento(); 
-				// $data_DetalleEvento ->setIdEvento();
-				$dtListarDetalleEventos = $business_DetalleEvento -> fncBusinessListarEventosDetalle($data_DetalleEvento);
-				
-				while ($fechaInicio <= $fechaFin) {
-			
-							$add="ADD";
-
-				 	foreach ($dtListarDetalleEventos as  $value) {
-
-						if ($fechaInicio == $value["Fecha"]) {
-					
-							$add = "NADD";
-							// echo("<br>");
-							// echo("NADD");
-							// echo("<br>");
-							// echo("fecha inicio".$fechaInicio ."== ".$value["Fecha"]);
-							// echo("<br>");
-					 		// echo($fechaInicio);
-							//break;
-
-						}
-						else{
-							// echo("<br>");
-							// echo("falta");
-							// echo("fecha inicio".$fechaInicio ."== ".$value["Fecha"]);
-							// echo("<br>");
-							//  echo($fechaInicio);
-							//  echo("<br>");
-						}
-					
-					 }
-					
-				
-					 	if ($add == "ADD") {
-
-								// echo("<br>");
-								// echo("agregado");
-								// echo("<br>");
-								$data_DetalleEvento -> setIdEvento( base64_decode($_POST["hidden_idEvento"]));
-								$data_DetalleEvento -> setVarEstado(1);
-								$data_DetalleEvento -> setDateFecha($fechaInicio);
-								$data_DetalleEvento -> setTimeInicioHora("08:00:00");
-								$data_DetalleEvento -> setTimeFinHora("16:00:00");
-								$data_DetalleEvento -> setVarComentario("Primera estapa") ;
-								
-								//print_r($data_DetalleEvento);
-
-
-								$bolAgregarDetalle = $business_DetalleEvento -> fncBusinessAgregar($data_DetalleEvento);
-							
-						# code...
+							//print_r($dataChip);
+						
+							$bolAgregarChip=  $business_Chip -> fnc_insertarChip($data_Chip);
+							if ($bolAgregarChip) {
+								echo('1');
+							}else {
+								echo('0');
+							}
+						
 					}
 				
+				
 			
-				 $fechaInicio=date ('Y-m-d', strtotime($fechaInicio. ' + 1 days'));
 
-				
-
-				}
-
-
-				
-				$_SESSION['mensaje']["ses_MensajeTipo"] 	= "correcto";	
-				$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "Registro Modificado con éxito";		
-			}else{
-				$_SESSION['mensaje']["ses_MensajeTipo"] 	= "error";	
-				$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "No se modifico el registro. Inténtelo nuevamente.";		
-			}
-		} else {
-			$_SESSION['mensaje']["ses_MensajeTipo"] 	= "error";	
-			$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "No se modifico el registro. Inténtelo nuevamente. Fechas no coinciden con el Cronograma";
+			
 		}
+					
+
 		
-		//	$business_Evento = new business_Evento(); 
-		//	$bolAgregarEvento = $business_Evento -> fncBusinessModificar($data_Evento);
+	}
+}
 
-			
-
-			
-
-			
-			$url_parametros['v'] = 'index';
-
-			
-			header('Location: ../modules/evento.php?' . http_build_query($url_parametros)); 
-		}else{
-
-			$url_parametros['v'] = 'index';
-
-				
-				header('Location: ../modules/evento.php?' . http_build_query($url_parametros));
-					$_SESSION['mensaje']["ses_MensajeTipo"] 	= "Incorrecto";	
-				 	$_SESSION['mensaje']["ses_MensajeDescripcion"] 	= "No se ha modificado, Fechas incorrectas";
-		}
-			
-		}else{
-			header('Location: ../index.php?' . http_build_query($url_parametros)); 
-
-			
-		}	
-
+	function fnc_Modificar($data_Chip)
+	{
+		echo("modificar");
+		
 	}
 
 

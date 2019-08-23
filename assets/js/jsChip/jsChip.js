@@ -8,38 +8,53 @@
             fnc_cantidadDeDineroPorOperador();
         }
         if ( document.getElementById( "tablaListarChip" )) {
+
+         
             listarChip();
 
-            $.validate({
-              modules: 'security, toggleDisabled',
-              onSuccess: function () {
-                 
-                  return true;
-              }
-          });
+          fnc_reiniciarValidador();
         }
       
       
 
     });
 
-    
+    function fnc_reiniciarValidador() {
+      $.validate({
+        modules: 'security, toggleDisabled',
+        onSuccess: function () {
+
+          return true;
+        }
+      });
+    }
+
+
+$('#chipBotonNuevo').click(function () {
+  $('#bd-example-modal-lg form').get(0).reset();
+  fnc_reiniciarValidador();
+  fnc_chipLimpiarModal();
+});
+
 
     $('#chipGuardar').click(function(){
-
+      
         
       var chipNumero = document.getElementById('chipNumero').value;
       var chipTarifa = document.getElementById('chipTarifa').value;
       var chipFechaContrato = document.getElementById('chipFechaContrato').value;
       var chipOperador = document.getElementById('chipOperador').value;
       var chipTipo = document.getElementById('chipTipo').value;
+      var chipId = document.getElementById('chipId').value;
+
       var parametros={
         "p": "xZ6rQTOHxk",
         "chipNumero": chipNumero,
         "chipTarifa": chipTarifa,
         "chipFechaContrato": chipFechaContrato,
         "chipOperador": chipOperador,
-        "chipTipo": chipTipo
+        "chipTipo": chipTipo,
+        "chipId": chipId
       };
       fnc_guardarChip(parametros);
     });
@@ -113,12 +128,16 @@ function fnc_guardarChip(parametros){
         listarChip();
     });
     var listarChip = function(){
-
+      var table = $('#tablaListarChip').DataTable();
+      table.clear();
+      ;
         var idioma = '';
       
 
       //$('#tablaListarChip').empty(); // empty in case the columns change
-       
+
+      //document.getElementById("chipLlenar").innerHTML = '<tr id="chipLlenar"><th></th> < th class="table-plus datatable-nosort" > Numero Chip</th >   <th>Tipo Contrato</th> <th>Operador</th><th>Fecha Contrato</th> <th>Meses de Servicio</th> <th>Tarifa</th>th>Traza</th> <th></th>';
+    
         var table = $('#tablaListarChip').DataTable({
             "destroy":true,
             "deferRender": true,
@@ -203,13 +222,24 @@ function fnc_guardarChip(parametros){
             buttons: [
             'copy', 'csv', 'pdf', 'print'
             ]
+    
 
         });
-        
+      $('#tablaListarChip tbody').off('click');
       $('#tablaListarChip tbody').on( 'click', '#delete', function () {
        
-        var edatos = table.row( $(this).parents('tr') ).data();
-        console.log(edatos);
+        var data = table.row( $(this).parents('tr') ).data();
+        
+        console.log(data);
+        $("#bd-example-modal-lg").modal('show');
+        $('#bd-example-modal-lg form').get(0).reset();
+        $('#chipGuardar').attr("disabled", false);
+        $('#chipGuardar').removeClass('disabled');
+        fnc_chipMostrarDatosEditar(data);
+       
+        //fnc_reiniciarValidador();
+
+        
          
 } );
 
@@ -247,6 +277,25 @@ function fnc_guardarChip(parametros){
             }
           });
           
+    }
+
+    function fnc_chipLimpiarModal() {
+      document.getElementById("chipId").value ="0";
+      document.getElementById("chipNumero").value = "";
+      document.getElementById("chipTarifa").value = "";
+      document.getElementById("chipFechaContrato").value = "";
+      document.getElementById("chipOperador").value = "";
+      document.getElementById("chipTipo").value = "";
+    }
+
+    function fnc_chipMostrarDatosEditar(data) {
+      document.getElementById("chipId").value= data.idchip;
+      document.getElementById("chipNumero").value = parseInt(data.numero) ;
+      document.getElementById("chipTarifa").value = data.tarifa;
+      document.getElementById("chipFechaContrato").value = data.fechacontrato;
+      document.getElementById("chipOperador").value = data.operador;
+      document.getElementById("chipTipo").value = data.tipo_contrato;
+      
     }
 
   
