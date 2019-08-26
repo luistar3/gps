@@ -256,7 +256,7 @@
 		if( !isset($_GET["chipTipo"]) || $_GET["chipTipo"] == "" ){ $validacion_post = false; }
 		 
 		if ($validacion_post == true) {
-			$chiId				=$_GET["chipId"];
+			$chipId				=$_GET["chipId"];
 			$chipNumero 		=$_GET["chipNumero"];
 			$chipTarifa			=$_GET["chipTarifa"];
 			$chipFechaContrato	=$_GET["chipFechaContrato"];
@@ -269,18 +269,18 @@
 				
 						
 				
-					if (count($dataChip)>0 && $dataChip[0]['idchip']!=$chiId) {
+					if (count($dataChip)>0 && $dataChip[0]['idchip']!=$chipId) {
 					echo('3');
 					} else {
 
-						if ($chiId!=0) {
+						if ($chipId!=0) {
 							$data_Chip -> setOperador(str_replace(' ','',$chipOperador));
 							$data_Chip -> setTipo_contrato(str_replace(' ','',$chipTipo));
 							$data_Chip -> setNumero(str_replace(' ','',$chipNumero));
 							$data_Chip -> setFechacontrato($chipFechaContrato);
 							$data_Chip -> setTarifa($chipTarifa);
-							$data_Chip -> setIdchip($chiId);
-							fnc_Modificar($data_Chip);
+							$data_Chip -> setIdchip($chipId);
+							fnc_Modificar($data_Chip,$business_Chip);
 						} else {
 							$data_Chip -> setOperador(str_replace(' ','',$chipOperador));
 							$data_Chip -> setTipo_contrato(str_replace(' ','',$chipTipo));
@@ -311,10 +311,13 @@
 	}
 }
 
-	function fnc_Modificar($data_Chip)
+	function fnc_Modificar($data_Chip,$business_Chip)
 	{
-		echo("modificar");
-		
+
+		//$business_Chip = new business_Chip();
+		$bolModificarChip =  $business_Chip -> fnc_BusinessModificarChip($data_Chip);
+		//print_r($data_Chip);
+		echo('4');
 	}
 
 

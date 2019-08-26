@@ -43,7 +43,7 @@
 							<a href="#" id="boton" >
 							boton
 							</a> -->
-							<a href="#" id="chipBotonNuevo" class="btn btn-primary" data-toggle="modal" data-target="#bd-example-modal-lg" type="button" style="color: rgb(255, 255, 255); background-color: rgb(0, 123, 181);" >
+							<a href="#" id="chipBotonNuevo" class="btn btn-primary" data-toggle="modal" data-target="#bd-example-modal-lg" type="button" style="color: rgb(255, 255, 255);background-color: rgb(19, 56, 74);" >
 							AGREGAR NUEVO
 							</a>
 							<div class="modal fade bs-example-modal-lg" id="bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -122,9 +122,9 @@
 					</div>
 					</div>
 					<div class="row">
-						<table id="tablaListarChip"class="stripe data-table-export nowrap compact">
+						<table id="tablaListarChip"class="stripe data-table-export nowrap compact table-striped" style="min-height:120px;" >
 							<thead>
-								<tr id="chipLlenar">
+								<tr>
 									<th class="table-plus datatable-nosort">Numero Chip</th>
 									<th>Tipo Contrato</th>
 									<th>Operador</th>									

@@ -8,11 +8,9 @@
             fnc_cantidadDeDineroPorOperador();
         }
         if ( document.getElementById( "tablaListarChip" )) {
-
-         
-            listarChip();
-
-          fnc_reiniciarValidador();
+        
+            listarChip();       
+            fnc_reiniciarValidador();
         }
       
       
@@ -38,8 +36,8 @@ $('#chipBotonNuevo').click(function () {
 
 
     $('#chipGuardar').click(function(){
-      
-        
+     
+    
       var chipNumero = document.getElementById('chipNumero').value;
       var chipTarifa = document.getElementById('chipTarifa').value;
       var chipFechaContrato = document.getElementById('chipFechaContrato').value;
@@ -84,21 +82,32 @@ function fnc_guardarChip(parametros){
                                 'El Registro Fue Agregado',
                                 'success'
                             )
+                          var table = $('#tablaListarChip').DataTable();
+                          table.clear();
+                          table.destroy();
                             listarChip();
                             $('#chipCancelar').click();
 
-                        } else if (response == '3'){
+                        } else if (response=='3'){
                             swal(
                                 'Error!',
                                 'El Numero ya Existe',
                               'error'
                             )
-                        }else{
+                        } else if (response=='4'){
                           swal(
-                            'Error!',
-                            'Ups,El Registro No Fue Agregado',
-                            'error'
+                            'Exito!',
+                            'El Registro Fue Modificado',
+                            'success'
                           )
+                          var table = $('#tablaListarChip').DataTable();
+                          table.clear();
+                          table.destroy();
+                          listarChip();
+                          $('#chipCancelar').click();
+                        }
+                        else{
+
                         }
 
                         
@@ -130,7 +139,9 @@ function fnc_guardarChip(parametros){
     var listarChip = function(){
       var table = $('#tablaListarChip').DataTable();
       table.clear();
-      ;
+      table.destroy();
+      
+      
         var idioma = '';
       
 
@@ -139,8 +150,11 @@ function fnc_guardarChip(parametros){
       //document.getElementById("chipLlenar").innerHTML = '<tr id="chipLlenar"><th></th> < th class="table-plus datatable-nosort" > Numero Chip</th >   <th>Tipo Contrato</th> <th>Operador</th><th>Fecha Contrato</th> <th>Meses de Servicio</th> <th>Tarifa</th>th>Traza</th> <th></th>';
     
         var table = $('#tablaListarChip').DataTable({
+          
+        
+          "scrollX": true,
             "destroy":true,
-            "deferRender": true,
+           
             "ajax": {
                 url: "../modules/chip.php", // json datasource				
                 type: 'GET',  // method  , by default get
@@ -181,7 +195,7 @@ function fnc_guardarChip(parametros){
            
             { data: 'fechacontrato',
               render : function (data) {
-                  return('<a href="javascript:;"><i class="icon-copy fa fa-calendar" aria-hidden="true"> _ '+data+'</i></a>');
+                  return('<a href="javascript:;"><i aria-hidden="true"> '+data+'</i></a>');
               }
              },
             { data: 'difereciafechacontratohoy',
@@ -200,22 +214,22 @@ function fnc_guardarChip(parametros){
              }
             },
             
-            { "defaultContent": '<div class="dropdown"><a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="fa fa-eye"></i> View</a>	<a class="dropdown-item"  href="#"><i class="fa fa-pencil"></i> Edit</a><a class="dropdown-item"  id = "delete" href="#"><i class="fa fa-trash"></i> Delete</a>	</div>	</div>'}
+              { "defaultContent": '<div class="dropdown"><a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a><div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#"><i class="fa fa-eye"></i>Ver</a> <a id="editarChip" class="dropdown-item"  href="#"><i class="fa fa-pencil"></i> Editar</a><a class="dropdown-item"  id = "eliminarChip" href="#"><i class="fa fa-trash"></i> Eliminar</a>	</div>	</div>'}
             
             
             ],
-            "language": idioma,
-          
-        	scrollCollapse: true,
-            autoWidth: false,
-            responsive: true,
+            
+            responsive: false,
             columnDefs: [{
                 targets: "datatable-nosort",
                 orderable: false,
-            }],
+                
+            }
+            ],
+            
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "language": {
-                "info": "_START_-_END_ of _TOTAL_ entries",
+                "info": "_START_-_END_ de _TOTAL_ registros",
                 searchPlaceholder: "Search"
             },
             dom: 'Blfrtip',
@@ -225,8 +239,12 @@ function fnc_guardarChip(parametros){
     
 
         });
+
+
+
+
       $('#tablaListarChip tbody').off('click');
-      $('#tablaListarChip tbody').on( 'click', '#delete', function () {
+      $('#tablaListarChip tbody').on( 'click', '#editarChip', function () {
        
         var data = table.row( $(this).parents('tr') ).data();
         

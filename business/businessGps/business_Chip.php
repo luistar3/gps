@@ -191,6 +191,54 @@ public function fnc_reporteCantidadDeDineroPorOperador(){
 			
 	}
 }
+
+
+public function fnc_BusinessModificarChip($chip){ 
+  	$connection = new connection();
+    $connectionstatus = $connection -> openConnection();
+    if ($connectionstatus) 
+    {		
+			$idchip			= $chip -> getIdchip();
+			$operador 		= $chip -> getOperador();
+			$tipo_contrato  = $chip -> getTipo_contrato();
+			$numero 		= $chip -> getNumero();
+			$fechacontrato  = $chip -> getFechacontrato();
+			$tarifa 		= $chip -> getTarifa();
+    	
+
+	  $sql = "usp_Gps_Chip_ActualizarChip";
+	    $proc = mssql_init($sql, $connectionstatus);
+ 			// echo $sql.' '.$CodUniv.', '.$ItemEst.', '.$IdSem.', '.$DatNacimiento.', '.$varDNI.', '.$varDomicilioReal.', '.$varDomicilioProcesal.', '.$intEdad.', '.$varTelefonoCelular.', '.$varTelefonoFijo.', '.$varEmail.', '.$datIngresoUniversidad.', '.$datEgresoUniversidad.', '.$IdGradoAcademico.', '.$datGradoAcademico.', '.$IdTituloAcademico.', '.$datTitulacion.', '.$varDireccionIP;
+			mssql_bind($proc, '@idchip', $idchip, SQLVARCHAR, false, false, 50);
+			mssql_bind($proc, '@operador', $operador, SQLVARCHAR, false, false, 50);
+			mssql_bind($proc, '@tipo_contrato', $tipo_contrato, SQLVARCHAR, false, false, 50);
+			mssql_bind($proc, '@numero', $numero, SQLVARCHAR, false, false, 50);
+			mssql_bind($proc, '@fechacontrato', $fechacontrato, SQLVARCHAR, false, false, 50);
+			mssql_bind($proc, '@tarifa', $tarifa, SQLVARCHAR, false, false, 50);
+		
+			 
+			 
+      $result = mssql_execute($proc);
+
+      if ($result) {
+        $connection -> closeConnection($connectionstatus);
+        unset($connectionstatus);
+        unset($connection);
+        return true;
+      }else{
+        $connection -> closeConnection($connectionstatus);
+        unset($connectionstatus);
+        unset($connection);
+        return false;
+      }
+    } 
+    else 
+    {
+      unset($connectionstatus);
+      unset($connection);
+      echo 'Tenemos un problema: ' . mssql_get_last_message();
+    }
+  }
 	public function fncBusinessListarEventosDetalle(){
 
 			@session_start();
